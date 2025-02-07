@@ -3,6 +3,6 @@ Este aplicativo tem como propósito facilitar algumas tarefas recorrentes do alu
 
 # TODO
 - [x] Sistema de login
-- [ ] Opção de salvar usuário e senha na tela de login
-- [ ] Página de tíquetes do RU
+- [x] Opção de salvar usuário e senha na tela de login
+- [x] Página de tíquetes do RU
 - [ ] Página de cardápio do RU

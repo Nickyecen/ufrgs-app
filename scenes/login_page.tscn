@@ -42,7 +42,7 @@ texture = ExtResource("1_r53gq")
 expand_mode = 4
 
 [node name="UserLine" type="LineEdit" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -59,6 +59,11 @@ placeholder_text = "Insira sua senha"
 virtual_keyboard_type = 6
 secret = true
 
+[node name="CheckBox" type="CheckBox" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Salvar dados"
+
 [node name="CenterContainer" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -66,8 +71,12 @@ layout_mode = 2
 layout_mode = 2
 text = "Enviar"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="UfrgsConnector" type="Node" parent="."]
 script = ExtResource("5_ye3b3")
 
+[connection signal="toggled" from="CenterContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/CenterContainer/SendButton" to="." method="_on_send_button_pressed"]
 [connection signal="Connected" from="UfrgsConnector" to="." method="_on_ufrgs_connector_connected"]

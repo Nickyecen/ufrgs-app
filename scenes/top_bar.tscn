@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dm26fm3n1yoe6"]
+[gd_scene load_steps=7 format=3 uid="uid://dm26fm3n1yoe6"]
 
 [ext_resource type="Script" path="res://scripts/top_bar.gd" id="1_00shj"]
 [ext_resource type="Shader" path="res://shaders/account_button.gdshader" id="1_rh7hj"]
 [ext_resource type="Texture2D" uid="uid://d06ldf2mysyc1" path="res://resources/account.png" id="2_yhcj2"]
+[ext_resource type="Script" path="res://scenes/profile_button.gd" id="4_520no"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6fj2"]
 bg_color = Color(0.901961, 0.235294, 0.168627, 1)
@@ -15,13 +16,15 @@ layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
 script = ExtResource("1_00shj")
 
 [node name="TopbarPanel" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 38.0
+offset_bottom = 42.0
 grow_horizontal = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e6fj2")
 
@@ -30,8 +33,11 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="HamburguerMenu" type="Button" parent="TopbarPanel/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
 text = "≡"
 flat = true
 
@@ -40,16 +46,31 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="CurrentPage" type="Label" parent="TopbarPanel/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "Default"
 
 [node name="Spacer2" type="Control" parent="TopbarPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="TopbarPanel/HBoxContainer"]
+[node name="ProfileButton" type="Button" parent="TopbarPanel/HBoxContainer"]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_chqaf")
 layout_mode = 2
 theme_override_constants/icon_max_width = 30
+theme_override_constants/align_to_largest_stylebox = 0
 icon = ExtResource("2_yhcj2")
 flat = true
+script = ExtResource("4_520no")
+
+[node name="PopupMenu" type="PopupMenu" parent="TopbarPanel/HBoxContainer/ProfileButton"]
+size = Vector2i(180, 180)
+hide_on_checkable_item_selection = false
+hide_on_state_item_selection = true
+item_count = 1
+item_0/text = "Sair"
+
+[connection signal="pressed" from="TopbarPanel/HBoxContainer/ProfileButton" to="TopbarPanel/HBoxContainer/ProfileButton" method="_on_pressed"]
+[connection signal="id_pressed" from="TopbarPanel/HBoxContainer/ProfileButton/PopupMenu" to="." method="_on_popup_menu_id_pressed"]
