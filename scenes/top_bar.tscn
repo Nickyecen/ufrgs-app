@@ -15,8 +15,6 @@ layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 script = ExtResource("1_00shj")
 
 [node name="TopbarPanel" type="PanelContainer" parent="."]

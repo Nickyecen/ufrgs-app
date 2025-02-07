@@ -17,7 +17,7 @@ public struct Response {
 }
 
 // Classe responsável por realizar as conexões ao site da UFRGS
-public partial class UfrgsConnector : Node {
+[GlobalClass] public partial class UfrgsConnector : Node {
 
 	[Signal] public delegate void ConnectedEventHandler(); // Emitido em conexão bem sucedida
 	[Signal] public delegate void ConnectionErrorEventHandler(); // Emitido em conexão mal sucedida
@@ -58,22 +58,22 @@ public partial class UfrgsConnector : Node {
 			}
 		}
 
-		return new Response(Encoding.ASCII.GetString(rb.ToArray()), client.GetResponseCode());
+		return new Response(Encoding.Latin1.GetString(rb.ToArray()), client.GetResponseCode());
 	}
 
 	// Abstração da query de Post
-	private Response? Post(Godot.Collections.Dictionary input, string[] headers, string url) {
+	public Response Post(Godot.Collections.Dictionary input, string[] headers, string url) {
 		string query = client.QueryStringFromDict(input);
 		Error err = client.Request(HttpClient.Method.Post, url, headers, query);
 		if(err == Error.Ok) return GetResponse();
-		else return null;
+		else return new Response("", -1);
 	}
 
 	// Abstração da query de Get 
-	private Response? Get(string[] headers, string url) {
+	public Response Get(string[] headers, string url) {
 		Error err = client.Request(HttpClient.Method.Get, url, headers);
 		if(err == Error.Ok) return GetResponse();
-		else return null;
+		else return new Response("", -1);
 	}
 
 	// Método que conecta ao portal
@@ -126,7 +126,7 @@ public partial class UfrgsConnector : Node {
 		string[] cookieHeaders = {$"Cookie: {cookie}"};
 
 		// Testa se conexão foi bem sucedida
-		Response response = Get(cookieHeaders, TEST) ?? new Response("", -1);
+		Response response = Get(cookieHeaders, TEST);
 
 		// O código é 302 pois se a tentativa de login falhar ele retorna 200 com uma mensagem de erro
 		// Já se for bem sucedida, ele tenta te redirecionar a outra página (302).

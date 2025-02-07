@@ -1,0 +1,139 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpyjcch3pmnj4"]
+
+[ext_resource type="Script" path="res://scenes/TicketsPage.cs" id="1_1nxcn"]
+[ext_resource type="PackedScene" uid="uid://dm26fm3n1yoe6" path="res://scenes/top_bar.tscn" id="1_yta4u"]
+[ext_resource type="Script" path="res://scripts/UfrgsConnector.cs" id="3_q1v7d"]
+
+[node name="TicketsPage" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1nxcn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" parent="VBoxContainer" instance=ExtResource("1_yta4u")]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+title = "Tickets"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+current_tab = 1
+
+[node name="Available" type="ScrollContainer" parent="VBoxContainer/MarginContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Data" type="GridContainer" parent="VBoxContainer/MarginContainer/TabContainer/Available"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="Ticket" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Available/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Tíquete"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Available/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Valor"
+horizontal_alignment = 1
+
+[node name="EmissionDate" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Available/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Data de
+Liberação"
+horizontal_alignment = 1
+
+[node name="EmissionAs" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Available/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Vínculo
+Utilizado"
+horizontal_alignment = 1
+
+[node name="Used" type="ScrollContainer" parent="VBoxContainer/MarginContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Data" type="GridContainer" parent="VBoxContainer/MarginContainer/TabContainer/Used"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 7
+
+[node name="Ticket" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Used/Data"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 1
+text = " Tíquete"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cost" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Used/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Valor"
+horizontal_alignment = 1
+
+[node name="Type" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Used/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Tipo"
+horizontal_alignment = 1
+
+[node name="EmissionDate" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Used/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Data de
+Liberação"
+horizontal_alignment = 1
+
+[node name="EmissionAs" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Used/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Vínculo
+Utilizado"
+horizontal_alignment = 1
+
+[node name="UsedDate" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Used/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Data
+Consumo"
+horizontal_alignment = 1
+
+[node name="Restaurant" type="Label" parent="VBoxContainer/MarginContainer/TabContainer/Used/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Restaurante "
+horizontal_alignment = 1
+
+[node name="UfrgsConnector" type="Node" parent="."]
+script = ExtResource("3_q1v7d")
