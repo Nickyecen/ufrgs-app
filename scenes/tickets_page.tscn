@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dpyjcch3pmnj4"]
+[gd_scene load_steps=5 format=3 uid="uid://dpyjcch3pmnj4"]
 
 [ext_resource type="Script" path="res://scenes/TicketsPage.cs" id="1_1nxcn"]
+[ext_resource type="Theme" uid="uid://c7bseuwmj1pwc" path="res://resources/dark_theme.tres" id="1_25m3e"]
 [ext_resource type="PackedScene" uid="uid://dm26fm3n1yoe6" path="res://scenes/top_bar.tscn" id="1_yta4u"]
 [ext_resource type="Script" path="res://scripts/UfrgsConnector.cs" id="3_q1v7d"]
 
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_25m3e")
 script = ExtResource("1_1nxcn")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -135,5 +137,18 @@ size_flags_horizontal = 3
 text = "Restaurante "
 horizontal_alignment = 1
 
+[node name="BackMarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 15
+
+[node name="Back" type="Button" parent="VBoxContainer/BackMarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "Voltar"
+
 [node name="UfrgsConnector" type="Node" parent="."]
 script = ExtResource("3_q1v7d")
+
+[connection signal="pressed" from="VBoxContainer/BackMarginContainer/Back" to="." method="OnBackPressed"]

@@ -20,19 +20,22 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 script = ExtResource("1_00shj")
 
-[node name="TopbarPanel" type="PanelContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 42.0
+offset_bottom = 43.0
 grow_horizontal = 2
+
+[node name="TopbarPanel" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e6fj2")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TopbarPanel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TopbarPanel"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="HamburguerMenu" type="Button" parent="TopbarPanel/HBoxContainer"]
+[node name="HamburguerMenu" type="Button" parent="MarginContainer/TopbarPanel/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -41,21 +44,21 @@ theme_override_font_sizes/font_size = 25
 text = "≡"
 flat = true
 
-[node name="Spacer" type="Control" parent="TopbarPanel/HBoxContainer"]
+[node name="Spacer" type="Control" parent="MarginContainer/TopbarPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CurrentPage" type="Label" parent="TopbarPanel/HBoxContainer"]
+[node name="CurrentPage" type="Label" parent="MarginContainer/TopbarPanel/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Default"
 
-[node name="Spacer2" type="Control" parent="TopbarPanel/HBoxContainer"]
+[node name="Spacer2" type="Control" parent="MarginContainer/TopbarPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ProfileButton" type="Button" parent="TopbarPanel/HBoxContainer"]
+[node name="ProfileButton" type="Button" parent="MarginContainer/TopbarPanel/HBoxContainer"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_chqaf")
 layout_mode = 2
@@ -65,12 +68,12 @@ icon = ExtResource("2_yhcj2")
 flat = true
 script = ExtResource("4_520no")
 
-[node name="PopupMenu" type="PopupMenu" parent="TopbarPanel/HBoxContainer/ProfileButton"]
+[node name="PopupMenu" type="PopupMenu" parent="MarginContainer/TopbarPanel/HBoxContainer/ProfileButton"]
 size = Vector2i(180, 180)
 hide_on_checkable_item_selection = false
 hide_on_state_item_selection = true
 item_count = 1
 item_0/text = "Sair"
 
-[connection signal="pressed" from="TopbarPanel/HBoxContainer/ProfileButton" to="TopbarPanel/HBoxContainer/ProfileButton" method="_on_pressed"]
-[connection signal="id_pressed" from="TopbarPanel/HBoxContainer/ProfileButton/PopupMenu" to="." method="_on_popup_menu_id_pressed"]
+[connection signal="pressed" from="MarginContainer/TopbarPanel/HBoxContainer/ProfileButton" to="MarginContainer/TopbarPanel/HBoxContainer/ProfileButton" method="_on_pressed"]
+[connection signal="id_pressed" from="MarginContainer/TopbarPanel/HBoxContainer/ProfileButton/PopupMenu" to="." method="_on_popup_menu_id_pressed"]

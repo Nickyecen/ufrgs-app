@@ -40,6 +40,10 @@ public partial class TicketsPage : Control {
 		AddTickets();
 	}
 
+	public void OnBackPressed() {
+		GetTree().ChangeSceneToFile("res://scenes/main_page.tscn");
+	}
+
 	// Pega tabela de tíquetes do html
 	private HtmlNode GetTicketTable(HtmlDocument htmlDoc) {
 		return htmlDoc.DocumentNode.SelectSingleNode("//table");

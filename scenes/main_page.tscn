@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c182tksaa5rs3"]
+[gd_scene load_steps=4 format=3 uid="uid://c182tksaa5rs3"]
 
 [ext_resource type="PackedScene" uid="uid://dm26fm3n1yoe6" path="res://scenes/top_bar.tscn" id="1_orcgk"]
 [ext_resource type="Script" path="res://scenes/main_page.gd" id="1_royua"]
+[ext_resource type="Theme" uid="uid://c7bseuwmj1pwc" path="res://resources/dark_theme.tres" id="1_uqk06"]
 
 [node name="MainPage" type="Control"]
 layout_mode = 3
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_uqk06")
 script = ExtResource("1_royua")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -21,16 +23,17 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TopBar" parent="VBoxContainer" instance=ExtResource("1_orcgk")]
-custom_minimum_size = Vector2(0, 38)
+custom_minimum_size = Vector2(540, 43)
 layout_mode = 2
+size_flags_vertical = 4
 title = "Main Page"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2

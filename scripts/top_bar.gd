@@ -7,10 +7,15 @@ var CREDENTIALS_PATH = "user://.credentials"
 		title = new_title
 		%CurrentPage.text = title
 		
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%CurrentPage.text = title
-
+	# Ajeita tela para dispositivos móveis
+	if OS.get_name() in ["Android", "iOS"]:
+		var safe_area = DisplayServer.get_display_safe_area()
+		if safe_area != Rect2i():	
+			$MarginContainer.add_theme_constant_override("margin_top", safe_area.position.y)
+	custom_minimum_size = Vector2(size.x, $MarginContainer.size.y)
+	
 func delete_credentials():
 	DirAccess.remove_absolute(CREDENTIALS_PATH)
 

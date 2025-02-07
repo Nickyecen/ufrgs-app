@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dobqv1t27x7au"]
 
 [ext_resource type="Script" path="res://scripts/login_page.gd" id="1_fn7fd"]
-[ext_resource type="Theme" path="res://resources/dark_theme.tres" id="1_gb3cm"]
+[ext_resource type="Theme" uid="uid://c7bseuwmj1pwc" path="res://resources/dark_theme.tres" id="1_gb3cm"]
 [ext_resource type="Texture2D" uid="uid://d06ldf2mysyc1" path="res://resources/account.png" id="1_r53gq"]
 [ext_resource type="PackedScene" uid="uid://dm26fm3n1yoe6" path="res://scenes/top_bar.tscn" id="1_vvfro"]
 [ext_resource type="Script" path="res://scripts/UfrgsConnector.cs" id="5_ye3b3"]
@@ -13,10 +13,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_gb3cm")
 script = ExtResource("1_fn7fd")
 
 [node name="TopBar" parent="." instance=ExtResource("1_vvfro")]
 layout_mode = 1
+offset_bottom = 43.0
 title = "Login Page"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
