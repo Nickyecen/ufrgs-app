@@ -3,9 +3,14 @@ Este aplicativo tem como propósito facilitar algumas tarefas recorrentes do alu
 
 # TODO
 
+## Uso offline
+- [ ] Ver tíquetes salvos em cache
+- [ ] Acessar cardápio
+
 ## Página de login
 - [x] Login no portal da UFRGS
 - [x] Opção de salvar usuário e senha na tela de login
+- [x] Botão de exibir senha na tela de login
 
 ## Página de Tíquetes
 - [x] Busca de tíquetes
@@ -15,4 +20,3 @@ Este aplicativo tem como propósito facilitar algumas tarefas recorrentes do alu
 
 ## Página de cardápio do RU
 - [ ] Acesso à página
-- [ ] Botão de voltar

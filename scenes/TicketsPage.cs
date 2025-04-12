@@ -23,8 +23,77 @@ public partial class TicketsPage : Control {
 	public List<Ticket> usedTickets;
 
 	private const string TICKETS_URL = "/RU/tru/";
+	private const string USED_TICKETS_PATH = "user://.cache/usedTickets";
+	private const string AVAILABLE_TICKETS_PATH = "user://.cache/availableTickets";
 
 	public override void _Ready() {
+		// Carrega os Tíquetes do arquivo cache para acesso offline
+		//LoadTicketsFromCache();
+		GatherTickets();
+
+		// Adiciona tíquetes à tabela na interface
+		UpdateTickets();
+	}
+
+	public void LoadTicketsFromCache() {
+		usedTickets.Clear();
+		using var usedTicketsFile = FileAccess.Open(USED_TICKETS_PATH, FileAccess.ModeFlags.Read);
+		while(!usedTicketsFile.EofReached()) {
+			Ticket nextTicket;
+			nextTicket.available = usedTicketsFile.Get8() == (byte) 1;
+			nextTicket.ticket = usedTicketsFile.GetPascalString();
+			nextTicket.cost = usedTicketsFile.GetPascalString();
+			nextTicket.emissionDate = usedTicketsFile.GetPascalString();
+			nextTicket.emissionAs = usedTicketsFile.GetPascalString();
+			nextTicket.type = usedTicketsFile.GetPascalString();
+			nextTicket.usedDate = usedTicketsFile.GetPascalString();
+			nextTicket.restaurant = usedTicketsFile.GetPascalString();
+			usedTickets.Add(nextTicket);
+		}
+
+		availableTickets.Clear();
+		using var availableTicketsFile = FileAccess.Open(AVAILABLE_TICKETS_PATH, FileAccess.ModeFlags.Read);
+		while(!availableTicketsFile.EofReached()) {
+			Ticket nextTicket;
+			nextTicket.available = availableTicketsFile.Get8() == (byte) 1;
+			nextTicket.ticket = availableTicketsFile.GetPascalString();
+			nextTicket.cost = availableTicketsFile.GetPascalString();
+			nextTicket.emissionDate = availableTicketsFile.GetPascalString();
+			nextTicket.emissionAs = availableTicketsFile.GetPascalString();
+			nextTicket.type = availableTicketsFile.GetPascalString();
+			nextTicket.usedDate = usedTicketsFile.GetPascalString();
+			nextTicket.restaurant = availableTicketsFile.GetPascalString();
+			availableTickets.Add(nextTicket);
+		}
+	}
+
+	public void SaveTicketsToCache() {
+		using var usedTicketsFile = FileAccess.Open(USED_TICKETS_PATH, FileAccess.ModeFlags.Write);
+		foreach(Ticket ticket in usedTickets) {
+			usedTicketsFile.Store8(ticket.available ? (byte) 1 : (byte) 0);
+			usedTicketsFile.StorePascalString(ticket.ticket);
+			usedTicketsFile.StorePascalString(ticket.cost);
+			usedTicketsFile.StorePascalString(ticket.emissionDate);
+			usedTicketsFile.StorePascalString(ticket.emissionAs);
+			usedTicketsFile.StorePascalString(ticket.type);
+			usedTicketsFile.StorePascalString(ticket.usedDate);
+			usedTicketsFile.StorePascalString(ticket.restaurant);
+		}
+
+		using var availableTicketsFile = FileAccess.Open(AVAILABLE_TICKETS_PATH, FileAccess.ModeFlags.Write);
+		foreach(Ticket ticket in availableTickets) {
+			availableTicketsFile.Store8(ticket.available ? (byte) 1 : (byte) 0);
+			availableTicketsFile.StorePascalString(ticket.ticket);
+			availableTicketsFile.StorePascalString(ticket.cost);
+			availableTicketsFile.StorePascalString(ticket.emissionDate);
+			availableTicketsFile.StorePascalString(ticket.emissionAs);
+			availableTicketsFile.StorePascalString(ticket.type);
+			availableTicketsFile.StorePascalString(ticket.usedDate);
+			availableTicketsFile.StorePascalString(ticket.restaurant);
+		}
+	}
+
+	public void GatherTickets() {
 		// Busca tíquetes na página
 		Response ticketResponse = GetNode<UfrgsConnector>("UfrgsConnector").Get(HttpClientSingleton.cookies, TICKETS_URL);
 		Debug.Assert(ticketResponse.code != -1);
@@ -35,12 +104,10 @@ public partial class TicketsPage : Control {
 		HtmlNode ticketTable = GetTicketTable(doc);
 		availableTickets = GetAvailableTickets(ticketTable);
 		usedTickets = GetUsedTickets(ticketTable);
-
-		// Adiciona tíquetes à tabela na interface
-		AddTickets();
 	}
 
 	public void OnBackPressed() {
+		SaveTicketsToCache();
 		GetTree().ChangeSceneToFile("res://scenes/main_page.tscn");
 	}
 
@@ -97,7 +164,7 @@ public partial class TicketsPage : Control {
 	}
 
 	// Adiciona tíquetes disponíveis e usados à interface
-	private void AddTickets() {
+	private void UpdateTickets() {
 
 		GridContainer available = GetNode<GridContainer>("VBoxContainer/MarginContainer/TabContainer/Available/Data");
 		GridContainer used = GetNode<GridContainer>("VBoxContainer/MarginContainer/TabContainer/Used/Data");

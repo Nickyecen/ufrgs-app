@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dpyjcch3pmnj4"]
 
-[ext_resource type="Script" path="res://scenes/TicketsPage.cs" id="1_1nxcn"]
+[ext_resource type="Script" uid="uid://cqvayd70054px" path="res://scenes/TicketsPage.cs" id="1_1nxcn"]
 [ext_resource type="Theme" uid="uid://c7bseuwmj1pwc" path="res://resources/dark_theme.tres" id="1_25m3e"]
 [ext_resource type="PackedScene" uid="uid://dm26fm3n1yoe6" path="res://scenes/top_bar.tscn" id="1_yta4u"]
-[ext_resource type="Script" path="res://scripts/UfrgsConnector.cs" id="3_q1v7d"]
+[ext_resource type="Script" uid="uid://dvv3f1rp50beq" path="res://scripts/UfrgsConnector.cs" id="3_q1v7d"]
 
 [node name="TicketsPage" type="Control"]
 layout_mode = 3
@@ -24,7 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TopBar" parent="VBoxContainer" instance=ExtResource("1_yta4u")]
-custom_minimum_size = Vector2(0, 38)
+custom_minimum_size = Vector2(540, 43)
 layout_mode = 2
 title = "Tickets"
 

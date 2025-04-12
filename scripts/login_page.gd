@@ -32,3 +32,6 @@ func _on_ufrgs_connector_connected() -> void:
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
 	save = toggled_on
+
+func _on_password_visibility_pressed():
+	%PasswordLine.secret = !%PasswordLine.secret

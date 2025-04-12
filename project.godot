@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="ufrgs-app"
-run/main_scene="res://scenes/login_page.tscn"
-config/features=PackedStringArray("4.3", "C#", "Mobile")
+run/main_scene="uid://c182tksaa5rs3"
+config/features=PackedStringArray("4.4", "C#", "Mobile")
 run/low_processor_mode=true
 boot_splash/bg_color=Color(0.901961, 0.235294, 0.168627, 1)
-boot_splash/image="res://icon.png"
 boot_splash/fullsize=false
 boot_splash/use_filter=false
+boot_splash/image="res://icon.png"
 config/icon="res://icon.png"
 
 [autoload]

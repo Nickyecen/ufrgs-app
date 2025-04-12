@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dobqv1t27x7au"]
+[gd_scene load_steps=7 format=3 uid="uid://dobqv1t27x7au"]
 
-[ext_resource type="Script" path="res://scripts/login_page.gd" id="1_fn7fd"]
+[ext_resource type="Script" uid="uid://ddx3mlixdwv3b" path="res://scripts/login_page.gd" id="1_fn7fd"]
 [ext_resource type="Theme" uid="uid://c7bseuwmj1pwc" path="res://resources/dark_theme.tres" id="1_gb3cm"]
 [ext_resource type="Texture2D" uid="uid://d06ldf2mysyc1" path="res://resources/account.png" id="1_r53gq"]
 [ext_resource type="PackedScene" uid="uid://dm26fm3n1yoe6" path="res://scenes/top_bar.tscn" id="1_vvfro"]
-[ext_resource type="Script" path="res://scripts/UfrgsConnector.cs" id="5_ye3b3"]
+[ext_resource type="Texture2D" uid="uid://b8igp2hnmwo1v" path="res://resources/eye_white.png" id="5_spgs3"]
+[ext_resource type="Script" uid="uid://dvv3f1rp50beq" path="res://scripts/UfrgsConnector.cs" id="5_ye3b3"]
 
 [node name="LoginPage" type="Control"]
 layout_mode = 3
@@ -17,6 +18,7 @@ theme = ExtResource("1_gb3cm")
 script = ExtResource("1_fn7fd")
 
 [node name="TopBar" parent="." instance=ExtResource("1_vvfro")]
+custom_minimum_size = Vector2(540, 43)
 layout_mode = 1
 offset_bottom = 43.0
 title = "Login Page"
@@ -54,12 +56,25 @@ max_length = 8
 virtual_keyboard_type = 2
 language = "pt_BR"
 
-[node name="PasswordLine" type="LineEdit" parent="CenterContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+
+[node name="PasswordLine" type="LineEdit" parent="CenterContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("1_gb3cm")
 placeholder_text = "Insira sua senha"
 virtual_keyboard_type = 6
 secret = true
+
+[node name="PasswordVisibility" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+icon = ExtResource("5_spgs3")
+icon_alignment = 1
+expand_icon = true
 
 [node name="CheckBox" type="CheckBox" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -79,6 +94,7 @@ layout_mode = 2
 [node name="UfrgsConnector" type="Node" parent="."]
 script = ExtResource("5_ye3b3")
 
+[connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer2/PasswordVisibility" to="." method="_on_password_visibility_pressed"]
 [connection signal="toggled" from="CenterContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/CenterContainer/SendButton" to="." method="_on_send_button_pressed"]
 [connection signal="Connected" from="UfrgsConnector" to="." method="_on_ufrgs_connector_connected"]

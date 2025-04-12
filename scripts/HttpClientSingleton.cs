@@ -15,14 +15,14 @@ public partial class HttpClientSingleton : Node {
 	}
 
 	public static HttpClientSingleton GetInstance() {
-        if (_instance == null) {
-            _instance = new HttpClientSingleton();
-        } if(_instance.client == null) {
+		if (_instance == null) {
+			_instance = new HttpClientSingleton();
+		} if(_instance.client == null) {
 			_instance.client = new HttpClient();
 		}
 
-        return _instance;
-    }
+		return _instance;
+	}
 
 	public override void _ExitTree() {
 		client?.Dispose();

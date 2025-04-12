@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://dm26fm3n1yoe6"]
 
-[ext_resource type="Script" path="res://scripts/top_bar.gd" id="1_00shj"]
-[ext_resource type="Shader" path="res://shaders/account_button.gdshader" id="1_rh7hj"]
+[ext_resource type="Script" uid="uid://dpga1lwm0kvce" path="res://scripts/top_bar.gd" id="1_00shj"]
+[ext_resource type="Shader" uid="uid://1tsmseifssu4" path="res://shaders/account_button.gdshader" id="1_rh7hj"]
 [ext_resource type="Texture2D" uid="uid://d06ldf2mysyc1" path="res://resources/account.png" id="2_yhcj2"]
-[ext_resource type="Script" path="res://scenes/profile_button.gd" id="4_520no"]
+[ext_resource type="Script" uid="uid://enojxllxydv6" path="res://scenes/profile_button.gd" id="4_520no"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6fj2"]
 bg_color = Color(0.901961, 0.235294, 0.168627, 1)

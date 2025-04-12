@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c182tksaa5rs3"]
 
 [ext_resource type="PackedScene" uid="uid://dm26fm3n1yoe6" path="res://scenes/top_bar.tscn" id="1_orcgk"]
-[ext_resource type="Script" path="res://scenes/main_page.gd" id="1_royua"]
+[ext_resource type="Script" uid="uid://cxh8ltxfqurgn" path="res://scenes/main_page.gd" id="1_royua"]
 [ext_resource type="Theme" uid="uid://c7bseuwmj1pwc" path="res://resources/dark_theme.tres" id="1_uqk06"]
 
 [node name="MainPage" type="Control"]
