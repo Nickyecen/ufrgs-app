@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func _on_send_button_pressed() -> void:
 	var user: String = $CenterContainer/VBoxContainer/UserLine.text
-	var password: String = $CenterContainer/VBoxContainer/PasswordLine.text
+	var password: String = %PasswordLine.text
 	
 	if save:
 		save_data(user, password)

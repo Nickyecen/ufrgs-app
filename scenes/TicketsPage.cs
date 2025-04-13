@@ -28,15 +28,17 @@ public partial class TicketsPage : Control {
 
 	public override void _Ready() {
 		// Carrega os Tíquetes do arquivo cache para acesso offline
-		//LoadTicketsFromCache();
-		GatherTickets();
+		LoadTicketsFromCache();
+		//GatherTickets();
 
 		// Adiciona tíquetes à tabela na interface
 		UpdateTickets();
 	}
 
 	public void LoadTicketsFromCache() {
-		usedTickets.Clear();
+		var savedUsedTickets = new List<Ticket>();	
+		var savedAvailableTickets = new List<Ticket>();	
+
 		using var usedTicketsFile = FileAccess.Open(USED_TICKETS_PATH, FileAccess.ModeFlags.Read);
 		while(!usedTicketsFile.EofReached()) {
 			Ticket nextTicket;
@@ -48,23 +50,27 @@ public partial class TicketsPage : Control {
 			nextTicket.type = usedTicketsFile.GetPascalString();
 			nextTicket.usedDate = usedTicketsFile.GetPascalString();
 			nextTicket.restaurant = usedTicketsFile.GetPascalString();
-			usedTickets.Add(nextTicket);
+			savedUsedTickets.Add(nextTicket);
+			GD.Print("Read ticket used " + nextTicket.ticket);
 		}
 
-		availableTickets.Clear();
 		using var availableTicketsFile = FileAccess.Open(AVAILABLE_TICKETS_PATH, FileAccess.ModeFlags.Read);
 		while(!availableTicketsFile.EofReached()) {
 			Ticket nextTicket;
-			nextTicket.available = availableTicketsFile.Get8() == (byte) 1;
-			nextTicket.ticket = availableTicketsFile.GetPascalString();
-			nextTicket.cost = availableTicketsFile.GetPascalString();
-			nextTicket.emissionDate = availableTicketsFile.GetPascalString();
-			nextTicket.emissionAs = availableTicketsFile.GetPascalString();
-			nextTicket.type = availableTicketsFile.GetPascalString();
-			nextTicket.usedDate = usedTicketsFile.GetPascalString();
-			nextTicket.restaurant = availableTicketsFile.GetPascalString();
-			availableTickets.Add(nextTicket);
+			nextTicket.available 		= availableTicketsFile.Get8() == (byte) 1;
+			nextTicket.ticket 			= availableTicketsFile.GetPascalString();
+			nextTicket.cost 			= availableTicketsFile.GetPascalString();
+			nextTicket.emissionDate 	= availableTicketsFile.GetPascalString();
+			nextTicket.emissionAs 		= availableTicketsFile.GetPascalString();
+			nextTicket.type 			= availableTicketsFile.GetPascalString();
+			nextTicket.usedDate 		= availableTicketsFile.GetPascalString();
+			nextTicket.restaurant 		= availableTicketsFile.GetPascalString();
+			savedAvailableTickets.Add(nextTicket);
+			GD.Print("Read ticket available " + nextTicket.ticket);
 		}
+
+		usedTickets = savedUsedTickets;
+		availableTickets = savedAvailableTickets;
 	}
 
 	public void SaveTicketsToCache() {
