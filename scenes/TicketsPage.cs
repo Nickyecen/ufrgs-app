@@ -19,12 +19,17 @@ public struct Ticket {
 // Classe da página que apresenta os tíquetes
 public partial class TicketsPage : Control {
 
+	[Signal] public delegate void TicketGatheringErrorEventHandler();
+
 	public List<Ticket> availableTickets;
 	public List<Ticket> usedTickets;
+
+	public String lastGatheredTime;
 
 	private const string TICKETS_URL = "/RU/tru/";
 	private const string USED_TICKETS_PATH = "user://.cache/usedTickets";
 	private const string AVAILABLE_TICKETS_PATH = "user://.cache/availableTickets";
+	private const string LAST_GATHER_TICKETS_PATH = "user://.cache/lastGatherTicketTime";
 
 	public override void _Ready() {
 		// Carrega os Tíquetes do arquivo cache para acesso offline
@@ -53,6 +58,7 @@ public partial class TicketsPage : Control {
 			savedUsedTickets.Add(nextTicket);
 			GD.Print("Read ticket used " + nextTicket.ticket);
 		}
+		usedTicketsFile.Close();
 
 		using var availableTicketsFile = FileAccess.Open(AVAILABLE_TICKETS_PATH, FileAccess.ModeFlags.Read);
 		while(!availableTicketsFile.EofReached()) {
@@ -68,6 +74,11 @@ public partial class TicketsPage : Control {
 			savedAvailableTickets.Add(nextTicket);
 			GD.Print("Read ticket available " + nextTicket.ticket);
 		}
+		availableTicketsFile.Close();
+
+		using var ticketTimeFile = FileAccess.Open(LAST_GATHER_TICKETS_PATH, FileAccess.ModeFlags.Read);
+		lastGatheredTime = ticketTimeFile.GetPascalString();
+		ticketTimeFile.Close();
 
 		usedTickets = savedUsedTickets;
 		availableTickets = savedAvailableTickets;
@@ -97,12 +108,20 @@ public partial class TicketsPage : Control {
 			availableTicketsFile.StorePascalString(ticket.usedDate);
 			availableTicketsFile.StorePascalString(ticket.restaurant);
 		}
+
+		using var ticketTimeFile = FileAccess.Open(LAST_GATHER_TICKETS_PATH, FileAccess.ModeFlags.Write);
+		ticketTimeFile.StorePascalString(lastGatheredTime);
+		ticketTimeFile.Close();
+
 	}
 
 	public void GatherTickets() {
 		// Busca tíquetes na página
 		Response ticketResponse = GetNode<UfrgsConnector>("UfrgsConnector").Get(HttpClientSingleton.cookies, TICKETS_URL);
-		Debug.Assert(ticketResponse.code != -1);
+		if(ticketResponse.code == -1) {
+			EmitSignal(SignalName.TicketGatheringError);
+			return;
+		}
 
 		// Extrai tíquetes do html
 		var doc = new HtmlDocument();
@@ -110,6 +129,8 @@ public partial class TicketsPage : Control {
 		HtmlNode ticketTable = GetTicketTable(doc);
 		availableTickets = GetAvailableTickets(ticketTable);
 		usedTickets = GetUsedTickets(ticketTable);
+
+		lastGatheredTime = Time.GetDatetimeStringFromSystem(useSpace: true);
 	}
 
 	public void OnBackPressed() {
