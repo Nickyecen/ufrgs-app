@@ -23,6 +23,9 @@ class AppThemes {
       selectedItemColor: Colors.white,
       unselectedItemColor: Colors.white70,
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+    ),
   );
 
   static final ThemeData darkTheme = ThemeData(
